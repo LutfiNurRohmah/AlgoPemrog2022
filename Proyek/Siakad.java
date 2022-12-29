@@ -87,7 +87,15 @@ public class Siakad {
     }
 
     public static void bubbleSort() {
-        
+        for(int i = 0; i < jumlahData; i++){
+            for(int j = 1; j < jumlahData - i; j++){
+                if(mahasiswa[j - 1].getNim().compareTo(mahasiswa[j].getNim()) >= 1){
+                    Mahasiswa temp = mahasiswa[j - 1];
+                    mahasiswa[j - 1] = mahasiswa[j];
+                    mahasiswa[j] = temp;
+                } 
+            }
+        }
     }
 
     public static void quickSort() {
