@@ -227,7 +227,31 @@ public class Siakad {
     }
 
     public static void hapusData() {
-        
+        Scanner input = new Scanner(System.in);
+        System.out.println("--- HAPUS DATA ---");
+        for(int i = 0; i < jumlahData; i++){
+            System.out.print((i + 1) + ". ");
+            System.out.println(mahasiswa[i].getNim() + " " + mahasiswa[i].getNama());
+        }
+        System.out.print("Masukkan Nomor Data yang akan dihapus: ");
+        int hapus = input.nextInt() - 1;
+        System.out.println("Nama : " + mahasiswa[hapus].getNama());
+        System.out.println("Nim : " + mahasiswa[hapus].getNim());
+        System.out.print("Hapus Data ini? (y/n): ");
+        String pilihan= input.next();
+        if(pilihan.equalsIgnoreCase("y")){
+            mahasiswa[hapus] = null;
+            for(int i = 0; i < jumlahData - 1; i++){
+                Mahasiswa temp;
+                if(mahasiswa[i] == null){
+                    temp = mahasiswa[i + 1];
+                    mahasiswa[i] = mahasiswa[i+1];
+                    mahasiswa[i + 1] = null;
+                }
+            }
+            jumlahData = jumlahData - 1;
+            System.out.println("Data berhasil dihapus!");
+        }
     }
 
     public static void main(String[] args) {
