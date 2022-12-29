@@ -48,7 +48,7 @@ public class Siakad {
                 break;
             }
             case 4: {
-                quickSort();
+                quickSort(mahasiswa, 0, jumlahData-1);
                 break;
             }
             case 5: {
@@ -98,8 +98,27 @@ public class Siakad {
         }
     }
 
-    public static void quickSort() {
-        
+    public static void quickSort(Mahasiswa[] arr, int low, int high) {
+        if(low < high){
+            int p = partition(arr, low, high);
+            quickSort(arr, low, p-1);
+            quickSort(arr, p+1, high);
+        } 
+    }
+
+    public static int partition(Mahasiswa[] arr, int low, int high) {
+        int p = low, j;
+        for(j=low+1; j <= high; j++)
+            if(arr[j].getNim().compareTo(arr[low].getNim())<=-1)
+                swap(arr, ++p, j);
+        swap(arr, low, p);
+        return p;
+    }
+
+    public static void swap(Mahasiswa[] arr, int low, int pivot){
+        Mahasiswa tmp = arr[low];
+        arr[low] = arr[pivot];
+        arr[pivot] = tmp;
     }
 
     public static void shellSort() {
