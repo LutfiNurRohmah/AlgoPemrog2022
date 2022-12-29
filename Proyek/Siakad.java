@@ -103,7 +103,16 @@ public class Siakad {
     }
 
     public static void shellSort() {
-        
+        for(int interval = jumlahData / 2; interval > 0; interval /= 2){
+            for(int i = interval; i < jumlahData; i++){
+                Mahasiswa temp = mahasiswa[i];
+                int j;
+                for(j = i; j >= interval && mahasiswa[j-interval].getNim().compareTo(temp.getNim()) >= 1; j -= interval){
+                    mahasiswa[j] = mahasiswa[j - interval];
+                }
+                mahasiswa[j] = temp;
+            }
+        }
     }
 
     public static void cariData() {
