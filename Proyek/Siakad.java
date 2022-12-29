@@ -136,6 +136,7 @@ public class Siakad {
 
     public static void cariData() {
         Scanner input = new Scanner(System.in);
+        System.out.println("--- CARI DATA ---");
         System.out.println("Pilih Algoritma Pencarian:");
         System.out.println("1. Linear Search");
         System.out.println("2. Binary Search");
@@ -154,6 +155,24 @@ public class Siakad {
     }
 
     public static void linearSearch() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Masukkan Nama/ NIM yang dicari: ");
+        String cari = input.nextLine();
+        int hasil = 0;
+        for(int i = 0; i < jumlahData; i++){
+            String nama = mahasiswa[i].getNama();
+            String nim = mahasiswa[i].getNim();
+            if(cari.equals(nama)){
+                System.out.println(mahasiswa[i].getNama() + "  " + mahasiswa[i].getNim());
+                hasil++;
+            } else if(cari.equals(nim)){
+                System.out.println(mahasiswa[i].getNama() + "  " + mahasiswa[i].getNim());
+                hasil++; 
+            } 
+        }
+        if(hasil == 0){
+            System.out.println("Data tidak ditemukan!");
+        }
         
     }
 
