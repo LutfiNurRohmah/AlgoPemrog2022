@@ -163,10 +163,10 @@ public class Siakad {
             String nama = mahasiswa[i].getNama();
             String nim = mahasiswa[i].getNim();
             if(cari.equals(nama)){
-                System.out.println(mahasiswa[i].getNama() + "  " + mahasiswa[i].getNim());
+                System.out.println(mahasiswa[i].getNim() + "  " + mahasiswa[i].getNama());
                 hasil++;
             } else if(cari.equals(nim)){
-                System.out.println(mahasiswa[i].getNama() + "  " + mahasiswa[i].getNim());
+                System.out.println(mahasiswa[i].getNim() + "  " + mahasiswa[i].getNama());
                 hasil++; 
             } 
         }
@@ -177,11 +177,53 @@ public class Siakad {
     }
 
     public static void binarySearch() {
-        
+        Scanner input = new Scanner(System.in);
+        System.out.print("Masukkan NIM yang dicari: ");
+        String cari = input.next();
+        Integer index = bSearch(mahasiswa, cari, 0, jumlahData - 1);
+        if(index != null){
+            System.out.println("Data yang anda cari :");
+            System.out.println(mahasiswa[index].getNim() + " " + mahasiswa[index].getNama());
+        } else{
+            System.out.println("Data tidak ditemukan!");
+        }
+    }
+
+    public static Integer bSearch(Mahasiswa[] arr, String filter, int low, int high) {
+        quickSort(mahasiswa, 0, jumlahData - 1);
+            if (low > high){
+                return null;
+            } else {
+                int mid = (low + high) / 2;
+                int temp2 = Integer.parseInt(arr[mid].getNim());
+                if(Integer.valueOf(filter) == temp2){
+                    return mid;
+                }
+                else if(Integer.valueOf(filter) > temp2){
+                    return bSearch(mahasiswa, filter, mid + 1, high);
+                }
+                else{
+                   return bSearch(mahasiswa, filter, low, mid - 1);
+                }
+            }
     }
 
     public static void editData() {
-        
+        Scanner input = new Scanner(System.in);
+        System.out.println("--- EDIT DATA ---");
+        for(int i = 0; i < jumlahData; i++){
+            System.out.print((i + 1) + ". ");
+            System.out.println(mahasiswa[i].getNim() + " " + mahasiswa[i].getNama());
+        }
+        System.out.print("Masukkan Nomor Data yang akan diedit: ");
+        int edit = input.nextInt() - 1;
+        input.nextLine();
+        System.out.print("NIM Baru: ");
+        String nim = input.nextLine();
+        System.out.print("Nama Baru: ");
+        String nama = input.nextLine();
+        mahasiswa[edit].setNim(nim);
+        mahasiswa[edit].setNama(nama);
     }
 
     public static void hapusData() {
