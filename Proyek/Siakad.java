@@ -6,6 +6,7 @@ public class Siakad {
 
     public static void tambahData() {
         Scanner input = new Scanner(System.in);
+        System.out.println("--- TAMBAH DATA ---");
         System.out.println("Silahkan tambahkan data");
         System.out.print("NIM: ");
         String nim = input.nextLine();
@@ -18,14 +19,26 @@ public class Siakad {
     }
 
     public static void tampilData() {
-        System.out.println("Berikut data Anda");
-        for(int i = 0; i < jumlahData; i++){
-            System.out.println(mahasiswa[i].getNim() + " " + mahasiswa[i].getNama());
+        System.out.println("--- DATA MAHASISWA ---");
+        if(jumlahData == 0){
+            System.out.println("Data belum ditambahkan");
+        } else {
+            for(int i = 0; i < 40; i++) System.out.print("-");
+            System.out.println();
+            System.out.printf("| %-12s | %-21s |%n", "NIM", "Nama");
+            for(int i = 0; i < 40; i++) System.out.print("-");
+            System.out.println();
+            for(int i = 0; i < jumlahData; i++){
+                System.out.printf("| %-12s | %-21s |%n", mahasiswa[i].getNim(), mahasiswa[i].getNama());
+            }
+            for(int i = 0; i < 40; i++) System.out.print("-");
+            System.out.println();
         }
     }
 
     public static void urutkanData() {
         Scanner input = new Scanner(System.in);
+        System.out.println("--- URUTKAN DATA ---");
         System.out.println("Pilih Algoritma Pengurutan:");
         System.out.println("1. Exchange Sort");
         System.out.println("2. Selection Sort");
@@ -163,9 +176,11 @@ public class Siakad {
             String nama = mahasiswa[i].getNama();
             String nim = mahasiswa[i].getNim();
             if(cari.equals(nama)){
+                System.out.println("Data ditemukan:");
                 System.out.println(mahasiswa[i].getNim() + "  " + mahasiswa[i].getNama());
                 hasil++;
             } else if(cari.equals(nim)){
+                System.out.println("Data ditemukan:");
                 System.out.println(mahasiswa[i].getNim() + "  " + mahasiswa[i].getNama());
                 hasil++; 
             } 
@@ -182,7 +197,7 @@ public class Siakad {
         String cari = input.next();
         Integer index = bSearch(mahasiswa, cari, 0, jumlahData - 1);
         if(index != null){
-            System.out.println("Data yang anda cari :");
+            System.out.println("Data ditemukan:");
             System.out.println(mahasiswa[index].getNim() + " " + mahasiswa[index].getNama());
         } else{
             System.out.println("Data tidak ditemukan!");
@@ -254,18 +269,45 @@ public class Siakad {
         }
     }
 
+    public static void UAS() {
+        if(jumlahData == 0){
+            System.out.println("Tidak ada data");
+        } else {
+            int jarak = jumlahData;
+            int susut = 13;
+            int urut = 0;
+            while(urut == 0){
+                jarak = (jarak * 10) / susut;
+                if(jarak <= 1){
+                    jarak = 1;
+                    urut = 1;
+                }
+                for(int i = 0; i + jarak < jumlahData; i++){
+                    if(mahasiswa[i].getNim().compareTo(mahasiswa[i + jarak].getNim()) >= 1){
+                        Mahasiswa temp = mahasiswa[i];
+                        mahasiswa[i] = mahasiswa[i + jarak];
+                        mahasiswa[i + jarak] = temp;
+                        urut = 0;
+                    }
+                }
+            }
+            System.out.println("Data telah diurutkan. Silahkan tampilkan data");
+        }
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int menu;
         do {
-            System.out.println("---Menu Siakad---");
+            System.out.println("---- MENU SIAKAD ----");
             System.out.println("1. Tambah data");
             System.out.println("2. Lihat Data");
             System.out.println("3. Urutkan Data");
             System.out.println("4. Cari Data");
             System.out.println("5. Edit Data");
             System.out.println("6. Hapus Data");
-            System.out.println("7. Keluar");
+            System.out.println("7. UAS");
+            System.out.println("8. Keluar");
             System.out.print("Pilih menu = ");
             menu = input.nextInt();
             if(menu == 1){
@@ -280,7 +322,9 @@ public class Siakad {
                 editData();
             } else if(menu == 6){
                 hapusData();
+            } else if(menu == 7){
+                UAS();
             }
-        } while (menu != 7);
+        } while (menu != 8);
     }
 }
